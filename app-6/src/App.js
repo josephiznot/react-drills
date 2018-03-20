@@ -8,7 +8,6 @@ class App extends Component {
     super();
     this.state = {
       task: "",
-      display: "",
       taskList: []
     };
     this.handleTasks = this.handleTasks.bind(this);
@@ -21,7 +20,7 @@ class App extends Component {
   }
   addTask() {
     let { task, taskList } = this.state;
-    taskList.unshift(task);
+    taskList.push(task);
     this.setState({
       task: task,
       taskList: taskList
