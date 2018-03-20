@@ -1,18 +1,47 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Todo from "./Components/Todo";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      task: "",
+      display: "",
+      taskList: []
+    };
+    this.handleTasks = this.handleTasks.bind(this);
+    this.addTask = this.addTask.bind(this);
+  }
+  handleTasks(e) {
+    this.setState({
+      task: e
+    });
+  }
+  addTask() {
+    let { task, taskList } = this.state;
+    taskList.unshift(task);
+    this.setState({
+      task: task,
+      taskList: taskList
+    });
+  }
+
   render() {
+    console.log(this.state.taskList);
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>Joe's Task List</h1>
+        <input
+          placeholder="insert task"
+          type="text"
+          onChange={e => this.handleTasks(e.target.value)}
+        />
+        <button placeholder="Add a task" onClick={this.addTask}>
+          Submit
+        </button>
+        <Todo taskProp={this.state.taskList} />
       </div>
     );
   }
